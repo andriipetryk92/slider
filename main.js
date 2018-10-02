@@ -18,3 +18,14 @@ function sliderRight() {
     }
     main.style.left = left + 'px';
 }
+
+document.getElementById('main').onmouseenter = onMouse;
+document.getElementById('all').onmouseleave = outMouse;
+function onMouse() {
+    document.getElementById('leftArrow').style = 'display: block';
+    document.getElementById('rightArrow').style = 'display: block';
+}
+function outMouse() {
+    document.getElementById('leftArrow').style = 'display: none';
+    document.getElementById('rightArrow').style = 'display: none';
+}

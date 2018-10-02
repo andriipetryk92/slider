@@ -38,6 +38,7 @@
     border:none;
     cursor: pointer;
     width: 15%;
+    display: none;
 }
 #rightArrow img{
     width: 100%;
