@@ -29,3 +29,17 @@ function outMouse() {
     document.getElementById('leftArrow').style = 'display: none';
     document.getElementById('rightArrow').style = 'display: none';
 }
+
+let bigImg = [];
+let big = document.getElementsByClassName('bigImg');
+for( let i = 0; i < big.length; i++) {
+    bigImg.push(big[i]);
+}
+console.log(bigImg);
+
+let littleImg = [];
+let little = document.getElementsByClassName('littleImg');
+for( let i = 0; i < little.length; i++) {
+    littleImg.push(little[i]);
+}
+console.log(littleImg);
