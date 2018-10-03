@@ -1,45 +1,76 @@
-document.getElementById('leftArrow').onclick = sliderLeft;
-document.getElementById('rightArrow').onclick = sliderRight;
-let left = -512;
+let next = document.getElementById('next');
+let previous = document.getElementById('previous');
 
-function sliderLeft() {
-    let main = document.getElementById('main');
-    left += 256;
-    if( left > 0)  {
-        left = -1024;
-    }
-    main.style.left = left + 'px';
-}
-function sliderRight() {
-    let main = document.getElementById('main');
-    left -= 256;
-    if( left < -1024) {
-        left = 0;
-    }
-    main.style.left = left + 'px';
+next.onclick = function(){
+    nextSlide();
+};
+previous.onclick = function(){
+    previousSlide();
+};
+function nextSlide(){
+    goToSlide(currentSlide+1);
 }
 
-document.getElementById('main').onmouseenter = onMouse;
+function previousSlide(){
+    goToSlide(currentSlide-1);
+}
+let slides = document.getElementsByClassName('slide');
+let currentSlide = 0;
+
+function goToSlide(i){
+    slides[currentSlide].className = 'slide';
+    currentSlide = (i+slides.length)%slides.length;
+    slides[currentSlide].className = 'slide showing';
+}
+
+let big = [];
+for( let i = 0; i < slides.length; i++) {
+    big.push(slides[i]);
+}
+console.log(big);
+
+let little = [];
+let slides1 = document.getElementsByClassName('slide1');
+for( let i = 0; i < slides1.length; i++) {
+    little.push(slides1[i]);
+}
+console.log(little);
+
+for( let i =0; i < little.length; i++) {
+    little[i].onmouseover = change.bind(this,i);
+
+    function change(i) {
+        goToSlide(i);
+    }
+}
+
+document.getElementById('all').onmouseenter = onMouse;
 document.getElementById('all').onmouseleave = outMouse;
 function onMouse() {
-    document.getElementById('leftArrow').style = 'display: block';
-    document.getElementById('rightArrow').style = 'display: block';
-}
+    document.getElementById('previous').style = 'display: block';
+    document.getElementById('next').style = 'display: block';
+};
 function outMouse() {
-    document.getElementById('leftArrow').style = 'display: none';
-    document.getElementById('rightArrow').style = 'display: none';
+    document.getElementById('previous').style = 'display: none';
+    document.getElementById('next').style = 'display: none';
+};
+
+let modal = document.getElementsByClassName('slide');
+for( let i = 0; i < modal.length; i++ ) {
+    modal[i].onclick = modalWindow;
+}
+let shadow = document.getElementById('shadow');
+
+function modalWindow() {
+    document.getElementById('slider').style = 'display: flex; justify-content: center';
+    document.getElementsByClassName('showing')[0].style = 'width: 700px; height: 650px';
+    shadow.style = 'display: block';
 }
 
-let bigImg = [];
-let big = document.getElementsByClassName('bigImg');
-for( let i = 0; i < big.length; i++) {
-    bigImg.push(big[i]);
-}
-console.log(bigImg);
+shadow.onclick = closeModal;
+    function closeModal() {
+        document.getElementById('slider').style = 'display: flex; justify-content: center';
+        document.getElementsByClassName('showing')[0].style = 'width: 300px; height: 300px';
+        shadow.style = 'display: none';
+    }
 
-let littleImg = [];
-let little = document.getElementsByClassName('littleImg');
-for( let i = 0; i < little.length; i++) {
-    littleImg.push(little[i]);
-}
-console.log(littleImg);
