@@ -1,44 +1,48 @@
 #main{
     display: flex;
     justify-content: center;
+    height: 400px;
 }
 #previous{
     background: none;
     border:none;
     cursor: pointer;
     width: 15%;
-
+    outline: none;
+    margin-right: 150px;
 }
 #previous img{
     width: 100%;
 }
 
 #slider{
-    position: relative;
-    height: 300px;
-    width: 300px;
-    padding: 0px;
-    margin: 0px;
+    margin-top: 72px;
+    width: 256px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
 }
 .slide{
-    position: absolute;
     height: 100%;
-    opacity: 0;
-    z-index: 1;
-    transition: opacity 1s;
-
+    display: none;
 }
 .showing {
-    opacity: 1;
-    z-index: 2;
+    display: flex;
+    z-index: 3;
+    position: relative;
 }
-
+.previousShowing, .nextShowing {
+    display: none;
+    z-index: 2;
+    position: relative;
+}
 #next{
     background: none;
     border:none;
     cursor: pointer;
     width: 15%;
-
+    outline: none;
+    margin-left: 150px;
 }
 #next img{
     width: 100%;
@@ -60,30 +64,14 @@
     background: grey;
 }
 
-.modalwin {
-    height: 200px;
-    width: 300px;
-    border: 3px outset gray;
-    background: wheat;
-    top: 20%; /* отступ сверху */
-    right: 0;
-    left: 0;
-    font-size: 14px;
-    margin: 0 auto;
-    z-index:2; /* поверх всех */
-    display: none;  /* сначала невидим */
-    position: fixed; /* фиксированное позиционирование, окно стабильно при прокрутке */
-    padding: 15px;
-    border: 1px solid #383838;
-}
 #shadow {
     display: none;
     position: fixed;
     width:100%;
     height:100%;
-    z-index:1; /* поверх всех  кроме окна*/
+    z-index:1;
     background:#000;
-    opacity: 0.5; /*прозрачность*/
+    opacity: 0.5;
     left:0;
     top:0;
 }
