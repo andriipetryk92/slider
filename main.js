@@ -76,38 +76,39 @@ leave6 = () => {
 };
 change = (u) => { goToSlide(u) };
 
+let  showImg = (event) => {
+    x = event.offsetX;
+    if (x > 50) {
+        widthPx = -x * 2.56 + 128;
+    } else if (x < 50) {
+        widthPx = -(x * 2.56 - 128);
+    } else {
+        widthPx = 0;
+    };
+    for (let j = 0; j < little.length; j++) {
+        document.getElementsByClassName('slide')[j].style.display = 'none';
+    };
+    showing.style.display = 'flex';
+    previousShowing.style.display = 'flex';
+    nextShowing.style.display = 'flex';
+    if (document.getElementsByClassName('slide')[0] == showing ){
+        showing.style.left = widthPx + 'px';
+        previousShowing.style.left = widthPx + 'px';
+        nextShowing.style.left = widthPx + 'px';
+    } else if (document.getElementsByClassName('slide')[6] == showing ) {
+        showing.style.left = -512 + widthPx + 'px';
+        previousShowing.style.left = -512 + widthPx + 'px';
+        nextShowing.style.left = 456 + widthPx + 'px';
+    } else {
+        showing.style.left = -256 + widthPx + 'px';
+        previousShowing.style.left = -256 + widthPx + 'px';
+        nextShowing.style.left = -256 + widthPx + 'px';
+    };
+};
+
 for( u = 0; u < little.length; ++u) {
     little[u].onmouseover = change.bind(this, u);
     little[u].onmousemove = showImg;
-    function showImg(event) {
-        x = event.offsetX;
-        if (x > 50) {
-            widthPx = -x * 2.56 + 128;
-        } else if (x < 50) {
-            widthPx = -(x * 2.56 - 128);
-        } else {
-            widthPx = 0;
-        };
-        for (let j = 0; j < little.length; j++) {
-            document.getElementsByClassName('slide')[j].style.display = 'none';
-        };
-        showing.style.display = 'flex';
-        previousShowing.style.display = 'flex';
-        nextShowing.style.display = 'flex';
-        if (document.getElementsByClassName('slide')[0] == showing ){
-            showing.style.left = widthPx + 'px';
-            previousShowing.style.left = widthPx + 'px';
-            nextShowing.style.left = widthPx + 'px';
-        } else if (document.getElementsByClassName('slide')[6] == showing ) {
-            showing.style.left = -512 + widthPx + 'px';
-            previousShowing.style.left = -512 + widthPx + 'px';
-            nextShowing.style.left = 456 + widthPx + 'px';
-        } else {
-            showing.style.left = -256 + widthPx + 'px';
-            previousShowing.style.left = -256 + widthPx + 'px';
-            nextShowing.style.left = -256 + widthPx + 'px';
-        };
-    };
     little[u].onmouseleave = leave;
     little[0].onmouseleave = leave1;
     little[6].onmouseleave = leave6;
