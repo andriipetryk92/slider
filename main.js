@@ -1,23 +1,20 @@
-let next, previous, slides, currentSlide, preSlide, neSlide, little,showing, nextShowing, previousShowing, widthPx, r, u, x, shadow;
+let next, previous, slides, slides1, currentSlide,
+preSlide, neSlide, little,showing, nextShowing, previousShowing,
+widthPx, r, u, x, shadow, nextSlide, previousSlide, goToSlide,
+leave, leave1, leave6, change, onMouse, outMouse, modalWindow, closeModal;
+
 next = document.getElementById('next');
 previous = document.getElementById('previous');
-next.onclick = function(){
-    nextSlide();
-};
-previous.onclick = function(){
-    previousSlide();
-};
-function nextSlide(){
-    goToSlide(currentSlide+1);
-};
-function previousSlide(){
-    goToSlide(currentSlide-1);
-};
+
+next.onclick = () => { nextSlide() };
+previous.onclick = () => { previousSlide() };
+nextSlide = () => { goToSlide(currentSlide+1) };
+previousSlide = () => { goToSlide(currentSlide-1) };
 slides = document.getElementsByClassName('slide');
 currentSlide = 3;
 preSlide = 2;
 neSlide = 4;
-function goToSlide(i){
+goToSlide = (i) => {
     slides[currentSlide].className = 'slide';
     currentSlide = (i+slides.length)%slides.length;
     slides[currentSlide].className = 'slide showing';
@@ -50,7 +47,7 @@ function goToSlide(i){
     showing.style.left = '0px';
 };
 little = [];
-let slides1 = document.getElementsByClassName('slide1');
+slides1 = document.getElementsByClassName('slide1');
 for( let i = 0; i < slides1.length; i++) {
     little.push(slides1[i]);
 };
@@ -60,23 +57,37 @@ for( let i = 0; i < little.length; i++) {
         goToSlide(i);
     };
 };
+leave = () => {
+    showing.style = 'display:flex; left: -256px';
+    previousShowing.style.left = '-256px';
+    nextShowing.style.left = '-256px';
+};
+leave1 = () => {
+    document.getElementsByClassName('slide')[0].style.left = '0px';
+    showing.style.display = 'flex';
+    previousShowing.style.display = 'none';
+    nextShowing.style.display = 'none';
+};
+leave6 = () => {
+    document.getElementsByClassName('slide')[6].style.left = '0px';
+    showing.style.display = 'flex';
+    previousShowing.style.display = 'none';
+    nextShowing.style.display = 'none';
+};
+change = (u) => { goToSlide(u) };
+
 for( u = 0; u < little.length; ++u) {
     little[u].onmouseover = change.bind(this, u);
     little[u].onmousemove = showImg;
-    function change(u) {
-        goToSlide(u);
-    };
     function showImg(event) {
         x = event.offsetX;
         if (x > 50) {
-            r = -x * 2.56 + 128;
+            widthPx = -x * 2.56 + 128;
         } else if (x < 50) {
-            r = -(x * 2.56 - 128);
+            widthPx = -(x * 2.56 - 128);
         } else {
-            r = 0;
+            widthPx = 0;
         };
-        widthPx = r;
-        console.log(widthPx);
         for (let j = 0; j < little.length; j++) {
             document.getElementsByClassName('slide')[j].style.display = 'none';
         };
@@ -98,53 +109,39 @@ for( u = 0; u < little.length; ++u) {
         };
     };
     little[u].onmouseleave = leave;
-    function leave() {
-        showing.style = 'display:flex; left: -256px';
-        previousShowing.style.left = '-256px';
-        nextShowing.style.left = '-256px';
-    };
     little[0].onmouseleave = leave1;
-    function leave1() {
-        document.getElementsByClassName('slide')[0].style.left = '0px';
-        showing.style.display = 'flex';
-        previousShowing.style.display = 'none';
-        nextShowing.style.display = 'none';
-    };
     little[6].onmouseleave = leave6;
-    function leave6() {
-        document.getElementsByClassName('slide')[6].style.left = '0px';
-        showing.style.display = 'flex';
-        previousShowing.style.display = 'none';
-        nextShowing.style.display = 'none';
-    };
 };
-document.getElementById('main').onmouseenter = onMouse;
-document.getElementById('main').onmouseleave = outMouse;
-function onMouse() {
+
+onMouse = () => {
     document.getElementById('previous').style = 'display: block';
     document.getElementById('next').style = 'display: block';
 };
-function outMouse() {
+outMouse = () => {
     document.getElementById('previous').style = 'display: none';
     document.getElementById('next').style = 'display: none';
 };
-for( let i = 0; i < slides.length; i++ ) {
-    slides[i].onclick = modalWindow;
-};
-shadow = document.getElementById('shadow');
-function modalWindow() {
+modalWindow = () => {
     document.getElementById('slider').style = 'display: flex; justify-content: center; width: 1000px';
     showing.style = 'width: 1000px; height: 500px';
     previousShowing.style.display = 'none';
     nextShowing.style.display = 'none';
     shadow.style = 'display: block';
 };
+closeModal = () => {
+    document.getElementById('slider').style = 'display: flex';
+    showing.style = 'width: 256px; height: 256px';
+    shadow.style = 'display: none';
+};
+document.getElementById('main').onmouseenter = onMouse;
+document.getElementById('main').onmouseleave = outMouse;
+
+for( let i = 0; i < slides.length; i++ ) {
+    slides[i].onclick = modalWindow;
+};
+shadow = document.getElementById('shadow');
 shadow.onclick = closeModal;
-    function closeModal() {
-        document.getElementById('slider').style = 'display: flex';
-        showing.style = 'width: 256px; height: 256px';
-        shadow.style = 'display: none';
-    };
+
 
 
 
